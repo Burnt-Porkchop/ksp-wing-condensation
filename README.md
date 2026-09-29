@@ -1,4 +1,4 @@
-# KSP Wingtip Vapor
+# KSP Wing Condensation
 
 A modified version of [KSP Wingtip Vortex](https://github.com/PogKai/ksp-wingtip-vortex) 1.4.0 by PogKai.
 
