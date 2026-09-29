@@ -1,127 +1,156 @@
-<div align="center">
+# KSP Wingtip Vapor
 
-<img src="docs/images/banner.jpg" alt="KSP Wingtip Vortex: a fighter in a hard bank trailing two wingtip vortices, with wing vapor at the wings" width="100%">
+A modified version of [KSP Wingtip Vortex](https://github.com/PogKai/ksp-wingtip-vortex) 1.4.0 by PogKai.
 
-<br>
+This version retains the **WingVapor** system while removing the original **Wingtip Vortex** rendering system. This allows another mod, such as KerbalFX, to provide the visible wingtip vortex effects while this mod provides the wing condensation and vapor effects.
 
-[![Release](https://img.shields.io/github/v/release/PogKai/ksp-wingtip-vortex?style=flat-square&label=release&color=2b7bb9)](https://github.com/PogKai/ksp-wingtip-vortex/releases/latest)
 [![KSP](https://img.shields.io/badge/KSP-1.12.x-4c9a4c?style=flat-square)](#install)
-[![License](https://img.shields.io/badge/license-CC%20BY--NC--SA%204.0-lightgrey?style=flat-square)](license.md)
+[![License](https://img.shields.io/badge/license-CC%20BY--NC--SA%204.0-lightgrey?style=flat-square)](LICENSE.md)
 
-**[Download](https://github.com/PogKai/ksp-wingtip-vortex/releases/latest)**
-&nbsp;·&nbsp; [Forum thread](https://forum.kerbalspaceprogram.com/topic/230208-ksp-vorticescontrails-mod-release/#comment-4508713)
-&nbsp;·&nbsp; [Changelog](CHANGELOG.md)
+**[Original project](https://github.com/PogKai/ksp-wingtip-vortex)**
+ ·  [Changelog](CHANGELOG.md)
 
-</div>
-
-<br>
+---
 
 ## What it does
 
-Fly. That's it: no menus, no settings, no per-craft setup.
+This mod adds wing condensation effects to aircraft based on their aerodynamic conditions.
 
-| | |
-|---|---|
-| **Wingtip vortices** | Twin vortex trails curl in behind the wingtips, stronger the harder the wing is working. On your craft and every aircraft around you, AI wingmen and BDArmory opponents included. Works on multi-part wings, canards and rockets |
-| **Wing vapor** | The white sheet over the wings in a hard pull. It is *hard to get*, on purpose |
-| **Wake behaviour** | Trails spread as they age, the ground pushes them apart, and a heavily loaded core can burst |
+The effect is most visible during high alpha maneuvers, such as hard turns and pulls.
 
-<br>
+|                          |                                                                                                                                                                                |
+| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Wing vapor**           | A visible sheet of condensation that forms over the wings during hard pulls and high-lift conditions. It is intentionally difficult to produce under normal flight conditions. |
+| **Aerodynamic response** | The vapor effect responds to the aerodynamic conditions of the aircraft and its wings.                                                                                         |
+| **FAR support**          | When Ferram Aerospace Research is installed, the vapor system can use FAR's aerodynamic data. FAR is not required.                                                             |
+
+The original wingtip vortex rendering system has been removed from this version.
+
+---
+
+## Why this version exists
+
+The original KSP Wingtip Vortex mod provides both wingtip vortex effects and wing vapor effects.
+
+This modification removes the original vortex rendering and management code while retaining the WingVapor system.
+
+The goal is to use the wing vapor effects from this project alongside a separate vortex-effect implementation, in my case KerbalFX aero, rather than having two mods render competing wingtip vortex effects.
+
+---
 
 ## Install
 
-1. Download the zip from the [latest release](https://github.com/PogKai/ksp-wingtip-vortex/releases/latest)
-2. Copy the `WingtipVortex` folder (inside the zip's `GameData`) into your KSP `GameData/`
-3. Fly
+1. Download the latest release.
+2. Copy the `WingtipVortex` folder inside the zip's `GameData` folder into your KSP `GameData` folder.
 
 KSP 1.12.x · no dependencies · to upgrade, replace the folder · to remove, delete it.
 
-<br>
+---
 
-## New in 1.4.0
+## Compatibility
 
-* **Ferram Aerospace Research support**: vortices and wing vapor read FAR's own per-wing lift and stall. Still no dependency, and stock behaves as before
-* **Contrails spread near their end** at altitude, wide and soft, like a real contrail once its vortices break up
-* **No more zigzag** on a fast jet in a hard pull: the wake follows the rigid airframe, not the flexing wingtip
-* Everything else in the [changelog](CHANGELOG.md)
+The retained WingVapor system works with:
 
-<br>
+* Stock KSP aerodynamics
+* Ferram Aerospace Research
+* KerbalFX
+* Other visual mods that do not conflict with its vapor rendering
 
-## Good to know
+The original Wingtip Vortex rendering system is **not included** in this version.
 
-* Works with **stock aerodynamics** or **Ferram Aerospace Research** (tested with FAR 0.16.2), detected automatically
-* Works alongside Scatterer, EVE, Parallax, Deferred, Singularity and Kopernicus
+---
 
-<br>
+## Original project
 
-## Learn more
+This project is based on **KSP Wingtip Vortex 1.4.0** by **PogKai**.
 
-| | |
-|---|---|
-| [How it works](docs/how-it-works.md) | The physics behind the vortices and the wake |
-| [Wing vapor](docs/wing-vapor.md) | How it forms, what to expect, and its limits |
-| [Troubleshooting](docs/troubleshooting.md) | Logs, known issues, and how to report a problem |
-| [Changelog](CHANGELOG.md) | Every release |
+Original project:
 
-<br>
+https://github.com/PogKai/ksp-wingtip-vortex
+
+The original project contains both the Wingtip Vortex and WingVapor systems. This fork removes the Wingtip Vortex rendering system and retains the WingVapor functionality.
+
+---
+
+## Source structure
+
+### `Source/WingVapor/`
+
+The retained wing vapor implementation.
+
+- `WingVaporAddon.cs` — KSP addon/entry point
+- `WingVapor.cs` — wing vapor behavior
+- `VaporRenderer.cs` — vapor rendering
+- `AeroState.cs` — aerodynamic state
+- `LiftingLine.cs` — lifting-line calculations
+- `Planform.cs` — wing geometry
+- `Condensation.cs` — condensation calculations
+- `TrailedVorticity.cs` — aerodynamic/vorticity calculations used by WingVapor
+- `Sunlight.cs` — lighting-related calculations
+- `BDArmoryCraft.cs` — BDArmory craft handling
+
+### Removed
+
+`WingtipVortex.cs` and the original `WingtipVortexManager` are intentionally
+absent. They were responsible for the original visible wingtip vortex system.
+
+### Compatibility shim
+
+`WingtipVortexShim.cs` provides the `WingtipVortex.ModVersion` constant
+expected by `WingVaporAddon.cs`. It does not implement the original vortex
+system.
+
+## Credits
+
+**Original author:** PogKai
+
+**Original project:** KSP Wingtip Vortex 1.4.0
+
+This project is a modification of PogKai's original work. Credit is retained in accordance with the original project's license. 
+
+**Modification:** The Wingtip Vortex rendering and management system was removed while the WingVapor system was retained for use alongside a separate vortex-effect implementation.
+
+---
 
 ## License
 
-[CC BY-NC-SA 4.0](license.md): free to use and share, never to sell. You can:
+[CC BY-NC-SA 4.0](LICENSE.md)
 
-| | |
-|---|---|
-| **Use it** | In your own game, videos, streams and screenshots |
-| **Change it** | Fork it, modify it, fix it, build on it |
-| **Share it** | Redistribute it, or bundle it in a free modpack |
-| **Reuse the code** | Put any part of it in your own free mods and projects |
+This project is a modified version of KSP Wingtip Vortex 1.4.0, which is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.
 
-As long as you:
+You may:
 
-* **Credit PogKai** and link back to this repository
-* **Don't sell it**, or anything built from it, or put it behind a paywall
-* **Use the same license** for anything you share that's built from it
+|               |                                                   |
+| ------------- | ------------------------------------------------- |
+| **Use it**    | In your own game, videos, streams and screenshots |
+| **Change it** | Fork it, modify it, fix it, and build on it       |
+| **Share it**  | Redistribute it or include it in a free modpack   |
 
-Versions up to 1.2.0 were released under MIT and stay under it. Everything after is CC BY-NC-SA 4.0.
+When sharing a derivative, retain appropriate credit to PogKai and the original project, and follow the terms of CC BY-NC-SA 4.0.
 
-<br>
+Versions of the original project up to 1.2.0 were released under the MIT License and remain under that license. This modification is based on version 1.4.0.
 
-## Free, always
-
-Every version of this mod is free. I have never charged for it and never will. If you paid for it anywhere, that money didn't go to me. Get it from the [official releases](https://github.com/PogKai/ksp-wingtip-vortex/releases) or the [forum thread](https://forum.kerbalspaceprogram.com/topic/230208-ksp-vorticescontrails-mod-release/#comment-4508713).
-
-<br>
+---
 
 ## AI disclosure
 
-This mod was built with help from Claude, Anthropic's AI assistant.
+This project was developed with assistance from AI tools.
 
-| | |
-|---|---|
-| **With Claude** | Research support, baseline code, and debugging |
-| **Me (PogKai)** | The ideas and the direction of the project, my own research, core integration into KSP, and all in-game testing |
+|                      |                                                                                                                                                                  |
+| -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **PogKai**           | Original project, research, design, KSP integration, and original in-game testing                                                                                |
+| **Claude (Anthropic)** | Assisted with development of the original KSP Wingtip Vortex project, as disclosed by PogKai |
+| **Fork author**      | Modified the project to remove the Wingtip Vortex rendering system, retained the WingVapor system, built the modified DLL, and tested the resulting modification |
+| **ChatGPT (OpenAI)** | Assisted with source-code analysis, identifying the WingVapor/Wingtip Vortex separation, and creating the modified build configuration                           |
 
-Every feature was tested and tuned by hand in game before it shipped.
+AI assistance does not replace the original author's credit or the original project's license.
 
-<br>
+---
 
-<div align="center">
+## Free, always
 
-CC BY-NC-SA 4.0 · by PogKai
+This modification is intended to remain freely available and is not intended to be sold or placed behind a paywall.
 
-</div>
+---
 
-<!--
-Screenshot slots: add images to docs/images/ and uncomment.
-
-<table>
-<tr>
-<td><img src="docs/images/vapor.jpg" alt="Wing vapor in a hard pull"></td>
-<td><img src="docs/images/vortex-approach.jpg" alt="Vortices on a slow approach"></td>
-</tr>
-<tr>
-<td align="center"><sub>Wing vapor in a hard pull</sub></td>
-<td align="center"><sub>Vortices on a slow approach</sub></td>
-</tr>
-</table>
--->
+CC BY-NC-SA 4.0 · Based on work by PogKai
