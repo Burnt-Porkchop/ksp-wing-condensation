@@ -140,7 +140,7 @@ This project was developed with assistance from AI tools.
 | -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **PogKai**           | Original project, research, design, KSP integration, and original in-game testing                                                                                |
 | **Claude (Anthropic)** | Assisted with development of the original KSP Wingtip Vortex project, as disclosed by PogKai |
-| **Fork author**      | Modified the project to remove the Wingtip Vortex rendering system, retained the WingVapor system, built the modified DLL, and tested the resulting modification |
+| **Burnt_Porkchop**      | Modified the project to remove the Wingtip Vortex rendering system, retained the WingVapor system, built the modified DLL, and tested the resulting modification |
 | **ChatGPT (OpenAI)** | Assisted with source-code analysis, identifying the WingVapor/Wingtip Vortex separation, and creating the modified build configuration                           |
 
 AI assistance does not replace the original author's credit or the original project's license.
